@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<title>Event Detail</title>
+	<link rel="icon" href="../../../../../../images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="../../../../../../images/favicon.ico" type="image/x-icon">
+	<link rel="icon" type="image/png" href="../../../../../../images/favicon.png">
+	<link rel="stylesheet" href="../../../../../../css/style.min.css?4a558b4-dirty" type="text/css" />
+	<link rel="stylesheet" href="../../../../../../css/machineOverview.css?4a558b4-dirty" type="text/css" />
+	<link rel="stylesheet" href="../../../../../../css/logDetail.css?4a558b4-dirty" type="text/css" />
+	<link rel="stylesheet" href="../../../../../../css/jquery.treeTable.css?4a558b4-dirty" type="text/css" />
+	
+	<script type="text/javascript" src="../../../../../../js/utils.js?4a558b4-dirty"></script>
+	<script type="text/javascript" src="../../../../../../js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../../../../../../js/logdetail.js?4a558b4-dirty"></script>
+	<script type="text/javascript" src="../../../../../../js/jquery.treeTable.js?4a558b4-dirty"></script>
+	<script type="text/javascript" src="../../../../../../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../../../../../js/jquery-ui-1.8.21.custom.min.js"></script>
+	<script type="text/javascript">
+			var tenant="PAYPAL";
+			var idsearch_base_url="http://cal-vip-a.slc.paypal.com/";
+			var timeZoneOffset=-25200000;
+			var contextPath = "../../../../../../";
+			var isLive = true;
+			var isID2On = false;
+			var opEnv = "xlive";
+			var currentPool = "helixserv".split("_");
+
+			function resizeIframe(obj) {
+				if (obj === null) return;
+				obj.style.height = obj.contentWindow.document.body.offsetHeight + 'px';
+				obj.style.width = obj.contentWindow.document.body.scrollWidth + 'px';
+
+				var pWindow = obj.parentNode.ownerDocument.defaultView;
+				pWindow.resizeIframe(pWindow.frameElement);
+			}
+
+			function iframe_toggle(obj) {
+				$(obj).parent().next().toggle();
+				if ($(obj).text() === '-')  $(obj).text('+');
+				else $(obj).text('-');
+			}
+
+			function init_iframe(lnk) {
+				var obj = $(lnk).siblings()[0];
+				var href = $(obj).attr("href") + "&hide-header=true";
+				$(lnk).hide();
+				$(obj).parent().parent().after("<tr><td style='vertical-align: top;' class='col_plus' align='center'><a class='show_hide_detail' href='#' onclick='iframe_toggle(this)'>-</a></td><td colspan=6 style='display:table-cell'><iframe style='border:1px solid #ddd' onload='resizeIframe(this);' scrolling='no' width='100%' height='250' src='"+href+"'/></td></tr>");
+			}
+
+			function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+					results = regex.exec(location.search);
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
+
+			function check() {
+				if (getParameterByName('hide-header') === "true") {
+					$("#Sherlock_Main_Header").hide();
+					$("header").hide();
+					$("#expand-collapse").hide();
+					$("footer").hide();
+					$("#tags").hide();
+				}
+			}
+	</script>
+</head>
+<body onload="apply();check();setTimeout(loadHeader, 1000)">
+<div id='ajaxLoadImage' style="display:none;height: 100px; position: absolute; top: 250px; width: 100%;">
+  <div style="height: 100px; background-color: white; width: 100px; opacity: 0.6; border-radius: 2px; margin-left: 50%;">
+    <img style='margin-left: 35px;margin-top: 35px;' src='../../../../../../images/ajax.gif'/>
+  </div>
+</div>
+<div id="keyMap" style="display:none;height: 100px; position: absolute; top: 250px; width: 100%;">
+    <div style="height: 125px; background-color: white; border-radius: 2px; margin-left: 30%; width: 35%; opacity: 0.95; border: 1px solid rgb(187, 187, 187);">
+        <table style="width: 100%;" cellpadding="2" cellspacing="0">
+            <thead>
+                <tr>
+                    <td><img style="width: 32px; height: 32px; padding: 5px; display: inline; float: left;" src="../../../../../../images/keyboard.png"></td>
+                    <td style="width: 30%;"><b>Shortcut</b></td>
+                    <td><b>Action</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>Shift + ↑</td>
+                    <td>Navigate to previous event</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Shift + ↓</td>
+                    <td>Navigate to next event</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Shift + F</td>
+                    <td>Filter call summary</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="wrapper" style="display:none;">
+	<header>
+		<table class="navheader navgheader">
+			<tr>
+				<td id="breadcrumb" class="header_text_left">
+					<a href="../../../../../../environments" target="_top" >Environments</a>&nbsp;&nbsp;>&nbsp;&nbsp;  
+					<a href="../../../../../../environment/paypal/pools" target="_top" class="poolslnk" >paypal</a>&nbsp;&nbsp;>&nbsp;&nbsp;  
+					<a href="../../../../../../environment/paypal/pool/helixserv/machines" target="_top" class="machineslnk">helixserv</a>&nbsp;&nbsp;>&nbsp;&nbsp; 
+					<a href="../../../../../../environment/paypal/pool/helixserv/machine/dcg12java9794/machineOverview" target="_top" id="molink">dcg12java9794</a>&nbsp;&nbsp;>&nbsp;&nbsp;Event Detail
+				</td>
+				<td>July 14, 2016</td>
+				<td id="prevnext" class="header_text_right">
+					<a href="../../../../../../environment/paypal/pool/helixserv/machine/dcg12java9794/rawLog" class="logMinPrettyPrint" >View activities for minute</a> |
+	                		<a href="../../../../../../environment/paypal/pool/helixserv/machine/dcg12java9794/rawLogs" class="logThread">Raw log for thread</a> |
+	                		<a id="viewChild_expand" href="#" target="_top">Expand All</a>  |
+                            <a id="viewChild_collapse" href="#" target="_top">Collapse All</a>
+						</td>
+			</tr>
+		</table>
+	</header>
+	<div id='tags' style='display:none'>
+	<table class='navheader' style="padding: 5px 5px 5px 10px;">
+		<tr>
+			<td style='border-right:1px solid #8B9E6F;width: 45px;'>
+                TAGS
+			</td>
+			<td id='tags-container' style='padding-left: 5px;'>
+
+			</td>
+		</tr>
+	</table>
+	<table id='idresult_table' class='fixed_headers' style='display:none;width:100%;border-bottom: 1px solid #d1d1d1;border-collapse: collapse;' cellpadding=5>
+	    <thead>
+            <tr style='border-bottom:1px solid #d1d1d1;background-color:#e9e9e9'>
+                <td style='width: 2%'></td>
+                <td style='width: 5%'>Colo</td>
+                <td style='width: 12%'>Pool</td>
+                <td style='width: 25%'>Name</td>
+                <td>
+                    <div id='timeline' style='display:inline'>Duration</div>
+                </td>
+            </tr>
+	    </thead>
+	    <tbody id='idresult'>
+	    </tbody>
+	</table>
+	<div id='search_bar' style="display:none;width: 100%; height: 25px; position: absolute; margin-top: -25px; background-color: white; border-bottom: 1px solid rgb(187, 187, 187); border-top: 1px solid rgb(237, 237, 237); opacity: 0.9;">
+      <div style="background-image: url('../../../../../../images/glyphicons-halflings.png'); background-position: -45px 0px; width: 16px; height: 16px; margin-top: 5px; margin-left: 5px; display: inline; float: left;"></div>
+      <input style="display: inline; margin-left: 5px; margin-top: 2px; width: 200px; border-radius: 2px; height: 17px; border: 1px solid rgb(221, 221, 221);" type="text">
+      <div style="display: inline; float: right; margin-top: 5px;">
+        <div id="realtime" style="display: inline; float: right; margin-right: 5px; padding: 0px 3px; cursor: pointer;" onclick="realtime=!realtime;table_done=false;build_id_data();"><div style="display: table-cell; width: 15px; background-color: #08C; color: white; text-align: center; vertical-align: middle;">+</div><div style="display: table-cell; padding-left: 5px;">Realtime</div></div>
+        <div id="non_realtime" style="display: inline; float: right; margin-right: 5px; cursor: pointer;" onclick="non_realtime=!non_realtime;table_done=false;build_id_data();"><div style="width: 15px; display: table-cell; background-color: #bbb; vertical-align: middle; text-align: center; color: white;">-</div><div style="display: table-cell; padding-left: 5px;">Async</div></div>
+        <div id='id_key_help' onclick='$("#keyMap").toggle()' style="display: inline; padding-right: 10px;cursor:pointer">
+            <div style="background-image: url('../../../../../../images/glyphicons-halflings.png'); height: 16px; display: inline; float: left; padding: 5px; background-position: -210px -4px; margin-top: -1px; background-origin: content-box; width: 16px;"></div>
+            <span>Key bindings</span>
+        </div>
+      </div>
+    </div>
+	</div>
+	<div id="log_detail_table_div" style="padding: 5px 0 5px 0;">
+	
+	</div>
+	<script>
+		var duration= null;
+		if (duration == undefined){
+			duration= 3000;
+		}
+		var machine_ip= "";
+		var machine= "dcg12java9794"; 
+		var datetime= "2016/07/14 05:05";
+		var env= "paypal";
+		var pool= "helixserv";
+		var thread = "0x69477";
+		var evt = "1468497943030";
+		var evtDetailPage = 'true';
+	</script>
+	<script>
+				var encoded_log_detail= "{\"pool\":\"helixserv\",\"machine\":\"dcg12java9794\",\"threadId\":431223,\"calBlockResp\":[{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":0,\"parentEvt\":0,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"t05:05:42.90\",\"type\":\"URL\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"E05:05:42.90\",\"type\":\"URL\",\"name\":\"ClientInfo\",\"status\":\"0\",\"data\":\"ID=155e94c5-9790-a116-8551-dc18fffeaf29!AdaptivePayments!10.17.104.85![&Ver=&ClientIP=198.140.222.129&ForwardedFor=10.17.1.11\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"E05:05:42.90\",\"type\":\"URL\",\"name\":\"Header\",\"status\":\"0\",\"data\":\"ACCEPT-ENCODING=gzip%2C+deflate%2C+br&POSTMAN-TOKEN=a2b74b22-41e3-1b66-9607-78ca8de38d46&USER-AGENT=Mozilla%2F5.0+%28Windows+NT+6.1%3B+WOW64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F51.0.2704.103+Safari%2F537.36&X-FORWARDED-SERVER=svcs.paypal.com&CLIENT-AUTH=No+cert&CACHE-CONTROL=no-cache&ACCEPT-LANGUAGE=en-US%2Cen%3Bq%3D0.8&X-FORWARDED-HOST=svcs.paypal.com&HOST=localhost%3A13379&X-EBAY-SOA-OPERATION-NAME=Pay&X-EBAY-SOA-SECURITY-USERID=barbara_api1.bullockpro.com&X-EBAY-SOA-SECURITY-TOKEN=****&X-PP-SILOVER=name%3DLIVE3.APIT.1%26silo_version%3D880%26app%3Dadaptivepaymentspartaweb_api3t%26TIME%3D377522007%26HTTP_X_PP_AZ_LOCATOR%3D&X-EBAY-SOA-ELEMENT-ORDERING-PRESERVE=FALSE&CONTENT-TYPE=application%2Fxml&ACCEPT=*%2F*&X-EBAY-SOA-SECURITY-PASSWORD=****&X-PAYPAL-APPLICATION-ID=APP-8D966345TX335432E&CONNECTION=Keep-Alive&CLIENT_AUTH=No+cert&X-PP-CORRID=7c54c694cd076&X-PAYPAL-CLIENT-CERT-HEADER=No+Client+Cert&X-PP-SLINGSHOT-TARGETAPP=adaptivepaymentspartaweb_api3t&X-SLR-ORIG-SCRIPT_URI=https%3A%2F%2Fapi-3t.paypal.com%2FAdaptivePayments%2FPay&ORIGIN=chrome-extension%3A%2F%2Ffhbjgbiflinjbdggehcddcbncdddomop&X-PP-ADS-PERFORMED=false&CONTENT-LENGTH=793&X-EBAY-SOA-RESPONSE-DATA-FORMAT=XML&X-FORWARDED-FOR=10.17.1.11&X-EBAY-SOA-ALTERNATE-FAULT-STATUS=TRUE&PP_REMOTE_ADDR=198.140.222.129&X-EBAY-SOA-REQUEST-DATA-FORMAT=XML\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"t05:05:42.90\",\"type\":\"DGTask\",\"name\":\"executeAndWait.Parallel Request Tasks\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"t05:05:42.90\",\"type\":\"EXECT\",\"name\":\"M\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:42.90\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.APICallerLookupPipelineTask.AUTH_AND_AUTH_PROVIDER\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"t05:05:42.90\",\"type\":\"CALL\",\"name\":\"AuthAndAuth-1.1-get_auth_actor_id\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"t05:05:42.90\",\"type\":\"SEND\",\"name\":\"AuthAndAuth-1.1-get_auth_actor_id\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"t05:05:42.90\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":7,\"messageClass\":\"A05:05:42.90\",\"type\":\"CONNECT\",\"name\":\"authandauthserv-vip.live11.dcg12.slc.paypalinc.com:13340\",\"status\":\"0\",\"duration\":\"3\",\"data\":\"fwk=ASF&laddr=10.17.104.85:33460&socket=new&uctime=2&ssl_r=true&ssl_c=true\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"T05:05:42.92\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"0\",\"duration\":\"13\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"T05:05:42.92\",\"type\":\"SEND\",\"name\":\"AuthAndAuth-1.1-get_auth_actor_id\",\"status\":\"0\",\"duration\":\"14\",\"data\":\"laddr=10.17.104.85&len=1165&raddr=authandauthserv-vip.live11.dcg12.slc.paypalinc.com:13340\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"t05:05:42.92\",\"type\":\"RECV\",\"name\":\"AuthAndAuth-1.1-get_auth_actor_id\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"E05:05:42.92\",\"type\":\"SERVER_INFO\",\"name\":\"AuthAndAuth\",\"status\":\"0\",\"data\":\"CurrentPID=22078&ServerPool=authandauthserv:get_auth_actor_id&CalThreadId=0&TopLevelTxnStartTime=155e94c5974&Host=dcg12feel6764\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"T05:05:42.92\",\"type\":\"RECV\",\"name\":\"AuthAndAuth-1.1-get_auth_actor_id\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"len=3593&raddr=10.17.188.152&laddr=10.17.104.85:33460\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"T05:05:42.92\",\"type\":\"CALL\",\"name\":\"AuthAndAuth-1.1-get_auth_actor_id\",\"status\":\"0\",\"duration\":\"14\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:42.92\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.APICallerLookupPipelineTask.AUTH_AND_AUTH_PROVIDER\",\"status\":\"0\",\"duration\":\"14\",\"data\":\"username=barbara_api1.bullockpro.com&subject=null&APICallerIDLookedup=1223709936391241042\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"A05:05:42.92\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.APISetupPipelineTask.UNBOUNDED\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:42.92\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.service.logging.PayloadLoggingPipelineTask.UNBOUNDED\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"E05:05:42.92\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"CI=952839\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"t05:05:42.92\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"E05:05:42.92\",\"type\":\"URL\",\"name\":\"SOA_REQUEST\",\"status\":\"0\",\"data\":\"<Payload correlationId=\\\"81483a58d09af\\\">\\\\r\\\\n<com.paypal.svcs.types.ap.PayRequest>\\\\r\\\\n<requestEnvelope>\\\\r\\\\n<detailLevel><\/detailLevel>\\\\r\\\\n<errorLanguage>en_US<\/errorLanguage>\\\\r\\\\n<any><\/any>\\\\r\\\\n<\/requestEnvelope>\\\\r\\\\n<clientDetails><\/clientDetails>\\\\r\\\\n<actionType>CREATE<\/actionType>\\\\r\\\\n<cancelUrl>http:\/\/localhost\/index.html<\/cancelUrl>\\\\r\\\\n<currencyCode>USD<\/currencyCode>\\\\r\\\\n<feesPayer>EACHRECEIVER<\/feesPayer>\\\\r\\\\n<ipnNotificationUrl>http:\/\/localhost\/rDP2AppServer\/payment\/IPN2.php<\/ipnNotificationUrl>\\\\r\\\\n<memo><\/memo>\\\\r\\\\n<pin><\/pin>\\\\r\\\\n<preapprovalKey><\/preapprovalKey>\\\\r\\\\n<receiverList>\\\\r\\\\n<receiver>\\\\r\\\\n<amount>10<\/amount>\\\\r\\\\n<email>barbara@bullockpro.com<\/email>\\\\r\\\\n<phone><\/phone>\\\\r\\\\n<primary>false<\/primary>\\\\r\\\\n<invoiceId><\/invoiceId>\\\\r\\\\n<paymentType><\/paymentType>\\\\r\\\\n<paymentSubType><\/paymentSubType>\\\\r\\\\n<accountId><\/accountId>\\\\r\\\\n<any><\/any>\\\\r\\\\n<\/receiver>\\\\r\\\\n<\/receiverList>\\\\r\\\\n<reverseAllParallelPaymentsOnError>true<\/reverseAllParallelPaymentsOnError>\\\\r\\\\n<senderEmail><\/senderEmail>\\\\r\\\\n<returnUrl>http:\/\/localhost\/index.html<\/returnUrl>\\\\r\\\\n<trackingId><\/trackingId>\\\\r\\\\n<fundingConstraint><\/fundingConstraint>\\\\r\\\\n<sender><\/sender>\\\\r\\\\n<payKeyDuration><\/payKeyDuration>\\\\r\\\\n<any>[flow_id: null]<\/any>\\\\r\\\\n<any>[step_id: null]<\/any>\\\\r\\\\n<any>[method: null]<\/any>\\\\r\\\\n<any>[useSandbox: null]<\/any>\\\\r\\\\n<\/com.paypal.svcs.types.ap.PayRequest>\\\\r\\\\n<\/Payload>\\\\r\\\\n\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"T05:05:42.92\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952838&CI=952839\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:42.92\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.service.logging.PayloadLoggingPipelineTask.UNBOUNDED\",\"status\":\"0\",\"duration\":\"8\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:42.92\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.StandardAPIAuthenticationPipelineTask.AUTH_AND_AUTH_PROVIDER\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"t05:05:42.92\",\"type\":\"CALL\",\"name\":\"AuthAndAuth-1.1-authenticate_and_authorize\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"t05:05:42.92\",\"type\":\"SEND\",\"name\":\"AuthAndAuth-1.1-authenticate_and_authorize\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"t05:05:42.93\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":7,\"messageClass\":\"A05:05:42.93\",\"type\":\"CONNECT\",\"name\":\"authandauthserv-vip.live11.dcg12.slc.paypalinc.com:13340\",\"status\":\"0\",\"duration\":\"3\",\"data\":\"fwk=ASF&laddr=10.17.104.85:33461&socket=new&uctime=2&ssl_r=true&ssl_c=true\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"T05:05:43.01\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"0\",\"duration\":\"83\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"T05:05:43.01\",\"type\":\"SEND\",\"name\":\"AuthAndAuth-1.1-authenticate_and_authorize\",\"status\":\"0\",\"duration\":\"84\",\"data\":\"laddr=10.17.104.85&len=1184&raddr=authandauthserv-vip.live11.dcg12.slc.paypalinc.com:13340\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"t05:05:43.01\",\"type\":\"RECV\",\"name\":\"AuthAndAuth-1.1-authenticate_and_authorize\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"E05:05:43.01\",\"type\":\"SERVER_INFO\",\"name\":\"AuthAndAuth\",\"status\":\"0\",\"data\":\"CurrentPID=22078&ServerPool=authandauthserv:authenticate_and_authorize&CalThreadId=0&TopLevelTxnStartTime=155e94c5992&Host=dcg12feel8752\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"T05:05:43.01\",\"type\":\"RECV\",\"name\":\"AuthAndAuth-1.1-authenticate_and_authorize\",\"status\":\"0\",\"duration\":\"1\",\"data\":\"len=4091&raddr=10.17.168.139&laddr=10.17.104.85:33461\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"T05:05:43.01\",\"type\":\"CALL\",\"name\":\"AuthAndAuth-1.1-authenticate_and_authorize\",\"status\":\"0\",\"duration\":\"85\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:43.01\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.StandardAPIAuthenticationPipelineTask.AUTH_AND_AUTH_PROVIDER\",\"status\":\"0\",\"duration\":\"85\",\"data\":\"username=barbara_api1.bullockpro.com&subject=null\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"A05:05:43.01\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.soa.crypto.CryptoPipelineTask.CPU\",\"status\":\"0\",\"duration\":\"4\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"A05:05:43.01\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.APIAuthenticationPipelineTask.UNBOUNDED\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:43.01\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.UserAuthorizationPipelineTask.AUTHORIZATION_PROVIDER\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"t05:05:43.01\",\"type\":\"CALL\",\"name\":\"Authorization-1.0-AccessCheck\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"t05:05:43.01\",\"type\":\"SEND\",\"name\":\"Authorization-1.0-AccessCheck\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"t05:05:43.01\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":7,\"messageClass\":\"A05:05:43.01\",\"type\":\"CONNECT\",\"name\":\"authorizationserv-vip.live11.dcg12.slc.paypalinc.com:16528\",\"status\":\"0\",\"duration\":\"3\",\"data\":\"fwk=ASF&laddr=10.17.104.85:56553&socket=new&uctime=2&ssl_r=true&ssl_c=true\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"T05:05:43.10\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"0\",\"duration\":\"84\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"T05:05:43.10\",\"type\":\"SEND\",\"name\":\"Authorization-1.0-AccessCheck\",\"status\":\"0\",\"duration\":\"84\",\"data\":\"laddr=10.17.104.85&len=2305&raddr=authorizationserv-vip.live11.dcg12.slc.paypalinc.com:16528\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"t05:05:43.10\",\"type\":\"RECV\",\"name\":\"Authorization-1.0-AccessCheck\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"E05:05:43.10\",\"type\":\"SERVER_INFO\",\"name\":\"Authorization\",\"status\":\"0\",\"data\":\"CurrentPID=22078&ServerPool=authorizationserv:AccessCheck&CalThreadId=7924&TopLevelTxnStartTime=155e94c59ef&Host=dcg12authorizationserv4074.dcg12.slc.paypalinc.com&pid=11618\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"T05:05:43.10\",\"type\":\"RECV\",\"name\":\"Authorization-1.0-AccessCheck\",\"status\":\"0\",\"duration\":\"1\",\"data\":\"len=6709&raddr=null&laddr=10.17.104.85:56553\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"T05:05:43.10\",\"type\":\"CALL\",\"name\":\"Authorization-1.0-AccessCheck\",\"status\":\"0\",\"duration\":\"85\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:43.10\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.UserAuthorizationPipelineTask.AUTHORIZATION_PROVIDER\",\"status\":\"0\",\"duration\":\"86\",\"data\":\"policyCount=14&authorizeApiCallers=true&isGMAPIAccessCheck=false\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:43.10\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.AppValidationPipelineTask.APP_MANAGEMENT_PROVIDER\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"t05:05:43.10\",\"type\":\"CALL\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"t05:05:43.10\",\"type\":\"SEND\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"t05:05:43.10\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":7,\"messageClass\":\"A05:05:43.10\",\"type\":\"CONNECT\",\"name\":\"appmanagementserv-vip.live11.dcg12.slc.paypalinc.com:15365\",\"status\":\"0\",\"duration\":\"11\",\"data\":\"fwk=ASF&laddr=10.17.104.85:47197&socket=new&uctime=12&ssl_r=false&ssl_c=false\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":6,\"messageClass\":\"T05:05:43.15\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"0\",\"duration\":\"49\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"T05:05:43.15\",\"type\":\"SEND\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"0\",\"duration\":\"49\",\"data\":\"laddr=10.17.104.85&len=881&raddr=appmanagementserv-vip.live11.dcg12.slc.paypalinc.com:15365\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"A05:05:43.15\",\"type\":\"RECV\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"len=2868&raddr=null&laddr=10.17.104.85:47197\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"T05:05:43.15\",\"type\":\"CALL\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"0\",\"duration\":\"50\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:43.15\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.AppValidationPipelineTask.APP_MANAGEMENT_PROVIDER\",\"status\":\"0\",\"duration\":\"50\",\"data\":\"X-PAYPAL-APPLICATION-ID=APP-8D966345TX335432E\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"A05:05:43.15\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.CertHeaderValidationPipelineTask.UNBOUNDED\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"A05:05:43.15\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.validation.ValidationPipelineTask.UNBOUNDED\",\"status\":\"0\",\"duration\":\"7\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"A05:05:43.16\",\"type\":\"DGTask\",\"name\":\"class com.paypal.foundation.security.authandauth.AuthenticationAndAuthorizationPipelineTask.UNBOUNDED\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"E05:05:43.16\",\"type\":\"DGTask\",\"name\":\"Parallel Request Tasks\",\"status\":\"0\",\"data\":\"\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"E05:05:42.90\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"id=180&CI=952832\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"A05:05:42.90\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"NoSuchMethodError\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952831&CI=952832\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"E05:05:42.90\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"id=173&CI=952833\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"A05:05:42.90\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"NoSuchMethodError\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952831&CI=952833\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"E05:05:42.90\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"id=181&CI=952834\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"A05:05:42.90\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"NoSuchMethodError\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952831&CI=952834\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"E05:05:42.90\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"id=174&CI=952835\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"A05:05:42.90\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"NoSuchMethodError\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952831&CI=952835\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"E05:05:42.90\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"id=179&CI=952836\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"A05:05:42.90\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"NoSuchMethodError\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952831&CI=952836\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"E05:05:42.90\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"id=177&CI=952837\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"A05:05:42.90\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"NoSuchMethodError\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952831&CI=952837\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"T05:05:43.16\",\"type\":\"EXECT\",\"name\":\"M\",\"status\":\"0\",\"duration\":\"256\",\"data\":\"PI=952831\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"T05:05:43.16\",\"type\":\"DGTask\",\"name\":\"executeAndWait.Parallel Request Tasks\",\"status\":\"0\",\"duration\":\"257\",\"data\":\"binding=XML&needsAuth=true\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"t05:05:43.16\",\"type\":\"SOA_SERVER_CALL\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"t05:05:43.16\",\"type\":\"CALL\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:43.16\",\"type\":\"SEND\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"t05:05:43.16\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"A05:05:43.16\",\"type\":\"CONNECT\",\"name\":\"appmanagementserv-vip.live11.dcg12.slc.paypalinc.com:15365\",\"status\":\"0\",\"duration\":\"10\",\"data\":\"fwk=ASF&laddr=10.17.104.85:47199&socket=new&uctime=10&ssl_r=false&ssl_c=false\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"T05:05:43.18\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"0\",\"duration\":\"18\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:43.18\",\"type\":\"SEND\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"0\",\"duration\":\"18\",\"data\":\"laddr=10.17.104.85&len=792&raddr=appmanagementserv-vip.live11.dcg12.slc.paypalinc.com:15365\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"A05:05:43.18\",\"type\":\"RECV\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"len=2696&raddr=null&laddr=10.17.104.85:47199\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"T05:05:43.18\",\"type\":\"CALL\",\"name\":\"AppManagement-1.3-get_app_details\",\"status\":\"0\",\"duration\":\"19\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"E05:05:43.18\",\"type\":\"Info\",\"name\":\"UserPermisson\",\"status\":\"0\",\"data\":\"SIMPLE_SEND_MONEY=Allowed\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"t05:05:43.18\",\"type\":\"CALL\",\"name\":\"AdaptivePayment-1.0-ASFFillCreatePayment\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:43.18\",\"type\":\"SEND\",\"name\":\"AdaptivePayment-1.0-ASFFillCreatePayment\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"t05:05:43.18\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":5,\"messageClass\":\"A05:05:43.18\",\"type\":\"CONNECT\",\"name\":\"adaptivepaymentserv-vip.live11.dcg12.slc.paypalinc.com:13337\",\"status\":\"0\",\"duration\":\"2\",\"data\":\"fwk=ASF&laddr=10.17.104.85:45337&socket=new&uctime=2&ssl_r=true&ssl_c=true\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"T05:05:43.28\",\"type\":\"SVC_INVOKE\",\"name\":\"HttpClient.Transport Internal Configuration - Do not change\",\"status\":\"0\",\"duration\":\"101\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:43.28\",\"type\":\"SEND\",\"name\":\"AdaptivePayment-1.0-ASFFillCreatePayment\",\"status\":\"0\",\"duration\":\"101\",\"data\":\"laddr=10.17.104.85&len=2065&raddr=adaptivepaymentserv-vip.live11.dcg12.slc.paypalinc.com:13337\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"t05:05:43.28\",\"type\":\"RECV\",\"name\":\"AdaptivePayment-1.0-ASFFillCreatePayment\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":4,\"messageClass\":\"E05:05:43.28\",\"type\":\"SERVER_INFO\",\"name\":\"AdaptivePayment\",\"status\":\"0\",\"data\":\"CurrentPID=22078&ServerPool=adaptivepaymentserv:ASFFillCreatePayment&CalThreadId=0&TopLevelTxnStartTime=155e94c5a8c&Host=dcg12piem8098\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":3,\"messageClass\":\"T05:05:43.28\",\"type\":\"RECV\",\"name\":\"AdaptivePayment-1.0-ASFFillCreatePayment\",\"status\":\"0\",\"duration\":\"1\",\"data\":\"len=5766&raddr=10.17.193.97&laddr=10.17.104.85:45337\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"T05:05:43.28\",\"type\":\"CALL\",\"name\":\"AdaptivePayment-1.0-ASFFillCreatePayment\",\"status\":\"0\",\"duration\":\"102\",\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"E05:05:43.28\",\"type\":\"Info\",\"name\":\"UserPermisson\",\"status\":\"0\",\"data\":\"PROCESS_CASH_TRANSACTION=NotAllowed&reasons=[105,POLICY_DENIED_BY_USER_FLAG]&evalStatus=Present\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"A05:05:43.28\",\"type\":\"EXEC\",\"name\":\"3726996866: SELECT \/* V3DalSequenceDAO$InternalV3DalSeqDAOMap.FIND_SEQUENCE.-2 *\/ wap_payrequest_seq.NEXTVAL FROM dual\",\"status\":\"0\",\"duration\":\"2\",\"data\":\"devplat\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"A05:05:43.29\",\"type\":\"EXEC\",\"name\":\"4032109940: INSERT INTO \/* IPaymentRequestDOMap.INSERTPK.-2 *\/ WAP_PAYREQUEST (ROW_VERSION, FLAGS, PAYMENT_TYPE, API_SUBJECT_ID, CANCEL_URL, TRACKING_ID, API_ACTOR_ID, SENDER_ACCOUNT_NUMBER, PAYKEY_EXPIRATION_MINUTE, SENDER_PHONE_ID, SENDER_EMAIL_ID, ACTION_TYPE, PLAP_INITIATOR_ID, DEFAULT_SHIPPING_ADDRESS_ID, FEES_PAYER, SHIPPING_ADDRESS_PHONE_ID, NOTIFICATION_URL, CHANNEL_SOURCE, CALLER_SESSION_ID, ID, PAYMENT_ACTIVITY_ID, MEMO, TIME_CREATED, RETURN_URL, PYPL_TIME_TOUCHED) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\",\"status\":\"0\",\"duration\":\"3\",\"data\":\"devplat\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"A05:05:43.29\",\"type\":\"EXEC\",\"name\":\"4219611967: SELECT \/* V3DalSequenceDAO$InternalV3DalSeqDAOMap.FIND_SEQUENCE.-2 *\/ wap_pay_receiver_seq.NEXTVAL FROM dual\",\"status\":\"0\",\"duration\":\"2\",\"data\":\"devplat\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"A05:05:43.29\",\"type\":\"EXEC\",\"name\":\"1542671503: INSERT INTO \/* IReceiverDOMap.INSERTPK.-2 *\/ WAP_PAYREQUEST_RECEIVER (ROW_VERSION, DESCRIPTION, FLAGS, AMOUNT, ALIAS, payRequest_id, INVOICE_ID, PAYMENT_TYPE, PAYMENT_PURPOSE_TYPE_CODE, ROLE_TYPE, EMAIL_ID, ALIAS_TYPE, USER_PHONE_ID, ID, CURRENCY_CODE, ACCOUNT_NUMBER, PYPL_TIME_TOUCHED) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\",\"status\":\"0\",\"duration\":\"4\",\"data\":\"devplat\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"E05:05:43.30\",\"type\":\"FLOW_LOGGING\",\"name\":\"CHECKPOINT\",\"status\":\"0\",\"data\":\"ID=AP-6US46174D0423984G&Event_Name=setup_logging_context&Event_Domain=ap_api_Pay\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"A05:05:43.30\",\"type\":\"EXEC\",\"name\":\"1136031512: SELECT \/* IPaymentExecDOMap.FINDBYIPAYMENTREQUESTDO.-2 *\/ EX.ROW_VERSION, EX.payRequest_id, EX.preapproval_id, EX.ACTION_TYPE, EX.STATUS, EX.ID, EX.TIME_CREATED, EX.PYPL_TIME_TOUCHED FROM WAP_PAYREQUEST_EXEC EX WHERE EX.PAYREQUEST_ID = ? AND ((1 = 1))\",\"status\":\"0\",\"duration\":\"2\",\"data\":\"devplat\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"A05:05:43.30\",\"type\":\"EXEC\",\"name\":\"2415079347: SELECT \/* V3DalSequenceDAO$InternalV3DalSeqDAOMap.FIND_SEQUENCE.-2 *\/ WAPI_RISK_FIELDS_ID_SEQ.NEXTVAL FROM dual\",\"status\":\"0\",\"duration\":\"2\",\"data\":\"devplat\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":2,\"messageClass\":\"A05:05:43.30\",\"type\":\"EXEC\",\"name\":\"1189644948: INSERT INTO \/* IApiRiskFieldsDOMap.INSERTPK.-2 *\/ WAPI_RISK_FIELDS (APPLICATION_ID, ID, TIME_CREATED, PYPL_TIME_TOUCHED, CALLER_USER_ID, CALLER_API_ID, CUSTOMER_IDENT, LINK_PROVIDER, CUSTOMER_TYPE_CODE, MODEL_NUMBER, MACHINE_IDENT, IP_ADDRESS, REFERENCE_VALUE, REFERENCE_TYPE) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \",\"status\":\"0\",\"duration\":\"3\",\"data\":\"devplat\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"T05:05:43.31\",\"type\":\"SOA_SERVER_CALL\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"0\",\"duration\":\"147\",\"data\":\"GUID=155e94c5-9790-a116-8551-dc18fffeaf29&REQUEST_ID=155e94c5-9790-a116-8551-dc18fffeaf29!AdaptivePayments!10.17.104.85![\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"E05:05:43.31\",\"type\":\"EXECP\",\"name\":\"P\",\"status\":\"0\",\"data\":\"CI=952841\",\"duration\":null},{\"@Subclasstype\":\"calblockresponse\",\"parentThread\":431223,\"parentEvt\":1468497943030,\"calActivitesResp\":[{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"t05:05:43.31\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"\",\"duration\":null,\"data\":\"\"},{\"@Subclasstype\":\"calrecordbean\",\"level\":1,\"messageClass\":\"E05:05:43.31\",\"type\":\"URL\",\"name\":\"SOA_RESPONSE\",\"status\":\"0\",\"data\":\"<Payload correlationId=\\\"81483a58d09af\\\">\\\\r\\\\n<com.paypal.svcs.types.ap.PayResponse>\\\\r\\\\n<responseEnvelope>\\\\r\\\\n<timestamp>2016-07-14T05:05:43.310-07:00<\/timestamp>\\\\r\\\\n<startingTime><\/startingTime>\\\\r\\\\n<ack>SUCCESS<\/ack>\\\\r\\\\n<correlationId>81483a58d09af<\/correlationId>\\\\r\\\\n<build>23046607<\/build>\\\\r\\\\n<any><\/any>\\\\r\\\\n<\/responseEnvelope>\\\\r\\\\n<payKey>AP-6US46174D0423984G<\/payKey>\\\\r\\\\n<paymentExecStatus>CREATED<\/paymentExecStatus>\\\\r\\\\n<payErrorList><\/payErrorList>\\\\r\\\\n<paymentInfoList><\/paymentInfoList>\\\\r\\\\n<sender><\/sender>\\\\r\\\\n<defaultFundingPlan><\/defaultFundingPlan>\\\\r\\\\n<warningDataList><\/warningDataList>\\\\r\\\\n<any><\/any>\\\\r\\\\n<\/com.paypal.svcs.types.ap.PayResponse>\\\\r\\\\n<\/Payload>\\\\r\\\\n\",\"duration\":null},{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"T05:05:43.31\",\"type\":\"EXECP\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"0\",\"duration\":\"0\",\"data\":\"corr_id_=81483a58d09af&id=431223&PI=952840&CI=952841\"}]},{\"@Subclasstype\":\"calrecordbean\",\"level\":0,\"messageClass\":\"T05:05:43.31\",\"type\":\"URL\",\"name\":\"SOA.AdaptivePayments.Pay\",\"status\":\"0\",\"duration\":\"411\",\"data\":\"client=helixserv&client_op=Pay&laddr=dcg12java9794.dcg12.slc.paypalinc.com&log_id_=155e94c5979&raddr=198.140.222.129&corr_id_=81483a58d09af&GUID=155e94c5-9790-a116-8551-dc18fffeaf29&REQUEST_ID=155e94c5-9790-a116-8551-dc18fffeaf29!AdaptivePayments!10.17.104.85![]\"}]}]}";
+				var log_detail= $.parseJSON(encoded_log_detail.replace('\n', ''));
+				colo = getParameterByName("colo");
+				getLogDetails(log_detail);
+				if (log_detail.threadId !== undefined){
+					thread = log_detail.threadId;
+				}
+				if ((evt == "undefined" || evt == undefined || evt == null || evt == "" || evt == "null") && log_detail.hasOwnProperty('calBlockResp') && log_detail.calBlockResp[0].hasOwnProperty('calActivitesResp') && log_detail.calBlockResp[0].calActivitesResp[0].hasOwnProperty('timestamp')){
+					evt = log_detail.calBlockResp[0].calActivitesResp[0].timestamp;
+				}
+			</script>
+		<footer>
+		<table class="navheaderbottom">
+			<tr>
+				<td id="breadcrumb" class="header_text_left">
+					<a href="../../../../../../environment/paypal/pool/helixserv/machine/dcg12java9794/rawLog" class="logMinPrettyPrint" >View activities for minute</a> |
+						</td>
+				<td id="prevnext" class="header_text_right">
+					<a href="../../../../../../environment/paypal/pool/helixserv/machine/dcg12java9794/rawLogs" class="logThread">Raw log for thread</a>
+						</td>
+			</tr>
+		</table>
+	</footer>
+</div>
+<div id="ie-message" class="hero-unit" style="display:none;margin:0 auto;margin-top:12%;background-color:white;width:800px;">
+	<img src="../../../../../../images/notification_warning.png" style="float:left;"/>
+	<h3 style="text-align:center;">Logview 2.0 is not supported on Internet Explorer.</h3>
+	<p style="text-align:center;margin-bottom:20px;">Please try following browsers Chrome/Firefox/Safari</p>
+</div>
+<script type="text/javascript">
+
+	function loadHeader() {
+		if (getParameterByName('hide-header') === "true") return;
+
+		var ele = document.createElement("script");
+		var sherlock_base_url="https://sherlock.paypalcorp.com/";
+		ele.src = sherlock_base_url + '/CoreApp/sherlock_header/sherlock_header_paypal.js';
+		document.body.appendChild(ele);
+	}
+
+	if($.browser.msie){
+		$('#ie-message').show();
+	} else {
+		$('#wrapper').show();
+	}
+
+	check();
+</script>
+</body>
+</html>
