@@ -1,0 +1,8 @@
+1. learn the xpath 
+2. use the jsel library with node
+3. finish the parsing 
+
+
+but after sometime
+
+. 

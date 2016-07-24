@@ -12,22 +12,7 @@
 		var log_detail = $.parseJSON(encoded_log_detail.replace('\n',''));
 		document.getElementById("json").innerHTML = JSON.stringify(log_detail, undefined, 2);
 	
-		function process(key,value) {
-		    console.log(key + " : "+value);
-		}
 
-		function traverse(o,func) {
-		    for (var i in o) {
-		        func.apply(this,[i,o[i]]);  
-		        if (o[i] !== null && typeof(o[i])=="object") {
-		            //going on step down in the object tree!!
-		            traverse(o[i],func);
-		        }
-		    }
-		}
-
-		//that's all... no magic, no bloated framework
-		traverse(log_detail,process);		
 	</script>	
 
 
